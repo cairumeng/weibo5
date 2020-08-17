@@ -6,3 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+html, body{
+    height: 100%;
+}
+
+.container{
+    height: 75%;
+}

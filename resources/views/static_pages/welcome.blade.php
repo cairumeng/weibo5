@@ -75,7 +75,7 @@
             </div>
             <div class="links">
                 <a href="#">Login</a>
-                <a href="#">Register</a>
+                <a href="{{ route('users.create') }}">Register</a>
             </div>
         </div>
     </div>

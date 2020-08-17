@@ -10904,3 +10904,12 @@ a.text-dark:focus {
   }
 }
 
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  height: 75%;
+}
+
