@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-<form method="POST" action=" route('sessions.store')}}" class="col-md-6 offset-md-3 mt-5">
+<form method="POST" action="{{route('sessions.store')}}" class="col-md-6 offset-md-3 mt-5">
     @csrf
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
@@ -10,6 +10,7 @@
 
     <div class="form-group">
         <label for="password">Password</label>
+        <span class=""><a href="" class="">(Password forgot?)</a></span>
         <input type="password" class="form-control" id="password" name="password">
     </div>
 

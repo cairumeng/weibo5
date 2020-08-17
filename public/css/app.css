@@ -10913,3 +10913,8 @@ body {
   height: 75%;
 }
 
+nav img {
+  height: 48px;
+  border-radius: 50%;
+}
+

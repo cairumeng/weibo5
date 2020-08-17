@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest', ['only' => 'create', 'store']);
+    }
+
+    public function index()
+    {
+        return view('users.index');
+    }
+
     public function create()
     {
         return view('users.create');
@@ -41,9 +51,9 @@ class UsersController extends Controller
             ]);
             session()->flash('success', 'You have successfully activated your account!');
             Auth::login($user);
+            return redirect()->route('users.index');
         } else {
             session()->flash('warning', 'Your activation code is expired!');
         }
-        return back();
     }
 }

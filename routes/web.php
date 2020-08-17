@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('static_pages.welcome');
-});
+})->name('home');
 
 Route::resource('users', 'UsersController');
 
 Route::get('users/activate/{token}', 'UsersController@activate')->name('users.activate');
 
-Route::resource('sessions', 'SessionsController')->only(['create', 'store', 'destroy']);
+Route::get('sessions', 'SessionsController@create')->name('sessions.create');
+Route::post('sessions', 'SessionsController@store')->name('sessions.store');
+Route::delete('sessions', 'SessionsController@destroy')->name('sessions.destroy');
