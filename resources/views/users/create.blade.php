@@ -24,7 +24,7 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="password_confirmation">Password</label>
+        <label for="password_confirmation">Password Confirmation</label>
         <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
     </div>
     <button type="submit" class="btn btn-primary">Register</button>

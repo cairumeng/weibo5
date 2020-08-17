@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label for="password">Password</label>
-        <span class=""><a href="" class="">(Password forgot?)</a></span>
+        <span class=""><a href="{{route('password.request')}}" class="">(Password forgot?)</a></span>
         <input type="password" class="form-control" id="password" name="password">
     </div>
 
