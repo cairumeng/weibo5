@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('users', 'UsersController');
+
+Route::get('users/activate/{token}', 'UsersController@activate')->name('users.activate');
