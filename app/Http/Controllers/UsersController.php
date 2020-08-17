@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -55,5 +57,25 @@ class UsersController extends Controller
         } else {
             session()->flash('warning', 'Your activation code is expired!');
         }
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        $avatar = $request->avatar;
+        $avatarName = time() . Str::random(5) . '.' . $avatar->extension();
+        Storage::disk('public')->putFileAs('/images', $avatar, $avatarName);
+        $path = Storage::url('images/' . $avatarName);
+        Auth::user()->update([
+            'avatar' => $path
+        ]);
+        return compact('path');
     }
 }

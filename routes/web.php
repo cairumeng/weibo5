@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::resource('users', 'UsersController');
 
 Route::get('users/activate/{token}', 'UsersController@activate')->name('users.activate');
-
+Route::post('users/uploadAvatar', 'UsersController@uploadAvatar')->name('users.uploadAvatar');
 Route::get('sessions', 'SessionsController@create')->name('sessions.create');
 Route::post('sessions', 'SessionsController@store')->name('sessions.store');
 Route::delete('sessions', 'SessionsController@destroy')->name('sessions.destroy');
