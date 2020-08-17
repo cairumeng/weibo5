@@ -20,13 +20,13 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed'
         ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'avatar' => asset('images/default_avtar.jpg')
+            'avatar' => asset('images/default_avatar.jpg')
         ]);
+        session()->flash('success', 'You have created your account, please check your email to activate it! ');
         return back();
     }
 }
