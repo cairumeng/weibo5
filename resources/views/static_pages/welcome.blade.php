@@ -74,7 +74,7 @@
                 WEIBO
             </div>
             <div class="links">
-                <a href="#">Login</a>
+                <a href="{{ route('sessions.create') }}">Login</a>
                 <a href="{{ route('users.create') }}">Register</a>
             </div>
         </div>

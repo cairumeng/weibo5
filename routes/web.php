@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::resource('users', 'UsersController');
 
 Route::get('users/activate/{token}', 'UsersController@activate')->name('users.activate');
+
+Route::resource('sessions', 'SessionsController')->only(['create', 'store', 'destroy']);
