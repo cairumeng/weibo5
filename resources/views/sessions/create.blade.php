@@ -6,6 +6,9 @@
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        @if($errors->has('email'))
+        <div class="text-danger">{{$errors->first('email')}}</div>
+        @endif
     </div>
 
     <div class="form-group">

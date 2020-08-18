@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\AccountActivation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -40,6 +41,34 @@ class User extends Authenticatable
 
     public function statuses()
     {
-        $this->hasMany(Status::class);
+        return $this->hasMany(Status::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    public function isFollowing(User $user)
+    {
+        $current_user = Auth::user();
+        return $current_user->followings->contains($user);
+    }
+
+    public function follow(User $user)
+    {
+        $current_user = Auth::user();
+        $current_user->followings()->syncWithoutDetaching($user);
+    }
+
+    public function unfollow(User $user)
+    {
+        $current_user = Auth::user();
+        $current_user->followings()->detach($user);
     }
 }

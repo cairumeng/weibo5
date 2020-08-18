@@ -13,13 +13,13 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['only' => 'create', 'store']);
-        $this->middleware('auth', ['edit', 'updateAvatar', 'update']);
+        $this->middleware('guest', ['only' => ['create', 'store']]);
+        $this->middleware('auth', ['only' => ['edit', 'updateAvatar', 'update']]);
     }
 
     public function index()
     {
-        $statuses = Status::orderBy('update_at', 'desc')->paginate(20);
+        $statuses = Status::orderBy('updated_at', 'desc')->paginate(20);
         return view('users.index', compact('statuses'));
     }
 
@@ -107,5 +107,23 @@ class UsersController extends Controller
         }
         session()->flash('success', 'You have updated your info!');
         return back();
+    }
+
+    public function show(User $user)
+    {
+        $statuses = $user->statuses()->orderBy('updated_at', 'desc')->paginate(20);
+        return view('users.show', compact('statuses'));
+    }
+
+    public function followers(User $user)
+    {
+        $followers = $user->followers()->paginate(10);
+        return view('users.followers', compact('followers'));
+    }
+
+    public function followings(User $user)
+    {
+        $followings = $user->followings()->paginate(10);
+        return view('users.followings', compact('followings'));
     }
 }

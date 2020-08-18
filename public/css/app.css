@@ -10919,3 +10919,15 @@ nav img {
   border-radius: 50%;
 }
 
+.status img {
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
