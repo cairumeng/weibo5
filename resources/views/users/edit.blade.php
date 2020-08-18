@@ -6,8 +6,9 @@
     <div id="uploadMessage"></div>
 
 </form>
-<form method="POST" action="" class="col-md-6 offset-md-3 mt-5">
+<form method="POST" action="{{route('users.update',$user)}}" class="col-md-6 offset-md-3 mt-5">
     @csrf
+    @method('patch')
     <div class="form-group">
         <label for="name">Name</label>
         <input class="form-control" id="name" name="name" value="{{$user->name}}">

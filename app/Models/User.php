@@ -37,4 +37,9 @@ class User extends Authenticatable
             $user->notify(new AccountActivation($user));
         });
     }
+
+    public function statuses()
+    {
+        $this->hasMany(Status::class);
+    }
 }

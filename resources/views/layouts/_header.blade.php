@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Weibo</a>
+    <a class="navbar-brand" href="{{route('users.index')}}">Weibo</a>
     @auth
     <div class="nav-item dropdown ml-auto">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

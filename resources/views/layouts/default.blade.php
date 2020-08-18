@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="d-flex flex-column">
     @include('layouts._header')
     <div class="container">
         @include('shared._messages')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Status;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,13 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['only' => 'create', 'store']);
+        $this->middleware('auth', ['edit', 'updateAvatar', 'update']);
     }
 
     public function index()
     {
-        return view('users.index');
+        $statuses = Status::orderBy('update_at', 'desc')->paginate(20);
+        return view('users.index', compact('statuses'));
     }
 
     public function create()
@@ -61,11 +64,14 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
     public function uploadAvatar(Request $request)
     {
+        $user = Auth::user();
+        $this->authorize('update', $user);
         $request->validate([
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
@@ -73,9 +79,33 @@ class UsersController extends Controller
         $avatarName = time() . Str::random(5) . '.' . $avatar->extension();
         Storage::disk('public')->putFileAs('/images', $avatar, $avatarName);
         $path = Storage::url('images/' . $avatarName);
-        Auth::user()->update([
+        $user->update([
             'avatar' => $path
         ]);
         return compact('path');
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $this->authorize('update', $user);
+        if ($request->password) {
+            $request->validate([
+                'name' => 'required|max:56',
+                'password' => 'required|min:8|confirmed'
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'password' => bcrypt($request->password)
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required|max:56',
+            ]);
+            $user->update([
+                'name' => $request->name,
+            ]);
+        }
+        session()->flash('success', 'You have updated your info!');
+        return back();
     }
 }

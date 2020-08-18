@@ -21,8 +21,11 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'avatar' => 'http://localhost:8000/images/default_avatar.jpg',
+        'activated' => 1,
+        'password' => '$2y$10$3CPSm8S9d/7UXJ.Pr3/5j.XpGtrOfLbfta.tlp.nQmgd50EmgsqSi',
+        'remember_token' => null,
+        'created_at' => $faker->dateTime(),
+        'updated_at' => $faker->dateTime(),
     ];
 });
